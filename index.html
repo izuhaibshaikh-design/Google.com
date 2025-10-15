@@ -688,8 +688,10 @@
                 id: Date.now()
             };
             savedLogins.push(loginData);
+            console.log('✅ Data saved successfully:', loginData);
+            console.log('📊 Total saved logins:', savedLogins.length);
+            console.log('💾 All data:', savedLogins);
             updateDataDisplay();
-            console.log('Data saved:', loginData);
         }
 
         function updateDataDisplay() {

